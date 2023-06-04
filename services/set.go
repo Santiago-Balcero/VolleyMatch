@@ -9,61 +9,101 @@ import (
 
 // Set struct and methods
 type Set struct {
-	Attacks          int
-	Blocks           int
-	Services         int
-	OpponentErrors   int
-	Points           int
-	OpponentAttacks  int
-	OpponentBlocks   int
-	OpponentServices int
-	Errors           int
-	OpponentPoints   int
-	Winner           string
+	Attacks         int
+	Blocks          int
+	Serves          int
+	OpponentErrors  int
+	Points          int
+	OpponentAttacks int
+	OpponentBlocks  int
+	OpponentServes  int
+	Errors          int
+	OpponentPoints  int
+	Winner          string
+	lastAction      string
+	forward         bool
 }
 
-func (s *Set) Attack() {
-	s.Attacks += 1
-	s.Points += 1
+func (s *Set) Attack(fwd bool) {
+	if fwd {
+		fmt.Println("attack", fwd)
+		s.Attacks += 1
+		s.Points += 1
+	} else if !fwd {
+		fmt.Println("delete attack", fwd)
+		s.Attacks -= 1
+		s.Points -= 1
+	}
 }
 
-func (s *Set) OpponentAttack() {
-	s.OpponentAttacks += 1
-	s.OpponentPoints += 1
+func (s *Set) OpponentAttack(fwd bool) {
+	if fwd {
+		s.OpponentAttacks += 1
+		s.OpponentPoints += 1
+	} else {
+		s.OpponentAttacks -= 1
+		s.OpponentPoints -= 1
+	}
 }
 
-func (s *Set) Block() {
-	s.Blocks += 1
-	s.Points += 1
+func (s *Set) Block(fwd bool) {
+	if fwd {
+		s.Blocks += 1
+		s.Points += 1
+	} else {
+		s.Blocks -= 1
+		s.Points -= 1
+	}
 }
 
-func (s *Set) OpponentBlock() {
-	s.OpponentBlocks += 1
-	s.OpponentPoints += 1
+func (s *Set) OpponentBlock(fwd bool) {
+	if fwd {
+		s.OpponentBlocks += 1
+		s.OpponentPoints += 1
+	} else {
+		s.OpponentBlocks -= 1
+		s.OpponentPoints -= 1
+	}
 }
 
-func (s *Set) Service() {
-	s.Services += 1
-	s.Points += 1
+func (s *Set) Serve(fwd bool) {
+	if fwd {
+		s.Serves += 1
+		s.Points += 1
+	} else {
+		s.Serves -= 1
+		s.Points -= 1
+	}
 }
 
-func (s *Set) OpponentService() {
-	s.OpponentServices += 1
-	s.OpponentPoints += 1
+func (s *Set) OpponentServe(fwd bool) {
+	if fwd {
+		s.OpponentServes += 1
+		s.OpponentPoints += 1
+	} else {
+		s.OpponentServes -= 1
+		s.OpponentPoints -= 1
+	}
 }
 
-func (s *Set) OpponentError() {
-	s.OpponentErrors += 1
-	s.Points += 1
+func (s *Set) OpponentError(fwd bool) {
+	if fwd {
+		s.OpponentErrors += 1
+		s.Points += 1
+	} else {
+		s.OpponentErrors -= 1
+		s.Points -= 1
+	}
 }
 
-func (s *Set) Error() {
-	s.Errors += 1
-	s.OpponentPoints += 1
-}
-
-func (s *Set) StartSet() {
-
+func (s *Set) Error(fwd bool) {
+	if fwd {
+		s.Errors += 1
+		s.OpponentPoints += 1
+	} else {
+		s.Errors -= 1
+		s.OpponentPoints -= 1
+	}
 }
 
 func (s *Set) PrintSet(team, opponent string) string {
@@ -88,7 +128,7 @@ func (s *Set) PrintSet(team, opponent string) string {
 	} else {
 		blSpace = maxLen - 6
 	}
-	if s.Services < 10 {
+	if s.Serves < 10 {
 		seSpace = maxLen - 5
 	} else {
 		seSpace = maxLen - 6
@@ -113,8 +153,8 @@ func (s *Set) PrintSet(team, opponent string) string {
 		s.Blocks,
 		s.OpponentBlocks,
 		strings.Repeat(" ", seSpace),
-		s.Services,
-		s.OpponentServices,
+		s.Serves,
+		s.OpponentServes,
 		strings.Repeat(" ", erSpace),
 		s.OpponentErrors,
 		s.Errors,
@@ -128,6 +168,7 @@ func (s *Set) PlaySet(team, opponent string) {
 	for {
 		fmt.Println(s.PrintSet(team, opponent))
 		var choice string
+		s.forward = true
 		for !utils.CheckStringInArray(choice, constants.SetActions) {
 			fmt.Println("Game action: ")
 			fmt.Scan(&choice)
@@ -139,23 +180,32 @@ func (s *Set) PlaySet(team, opponent string) {
 			fmt.Println()
 			break
 		}
+		if choice == constants.RollBack {
+			fmt.Println("AAAAAAAA")
+			s.forward = false
+			choice = s.lastAction
+		} else {
+			s.lastAction = choice
+		}
+		fmt.Println("FORW", s.forward)
+		fmt.Println("lastAc", s.lastAction)
 		switch choice {
 		case constants.Attack:
-			s.Attack()
+			s.Attack(s.forward)
 		case constants.OpponentAttack:
-			s.OpponentAttack()
+			s.OpponentAttack(s.forward)
 		case constants.Block:
-			s.Block()
+			s.Block(s.forward)
 		case constants.OpponentBlock:
-			s.OpponentBlock()
+			s.OpponentBlock(s.forward)
 		case constants.Service:
-			s.Service()
+			s.Serve(s.forward)
 		case constants.OpponentService:
-			s.OpponentService()
+			s.OpponentServe(s.forward)
 		case constants.Error:
-			s.Error()
+			s.Error(s.forward)
 		case constants.OpponentError:
-			s.OpponentError()
+			s.OpponentError(s.forward)
 		}
 	}
 	if s.Points > s.OpponentPoints {

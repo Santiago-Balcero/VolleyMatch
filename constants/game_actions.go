@@ -11,6 +11,7 @@ const (
 	Error           string = "e"
 	Exit            string = "x"
 	PlaySet         string = "play"
+	RollBack        string = "rb"
 )
 
 var SetActions = []string{
@@ -23,4 +24,5 @@ var SetActions = []string{
 	OpponentService,
 	Error,
 	Exit,
+	RollBack,
 }

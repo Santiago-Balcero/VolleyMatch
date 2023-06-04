@@ -7,22 +7,22 @@ import (
 
 // Game struct and methods
 type Game struct {
-	Team             string
-	Opponent         string
-	TeamSets         int
-	OpponentSets     int
-	Sets             []Set
-	Attacks          int
-	Blocks           int
-	Services         int
-	OpponentErrors   int
-	Points           int
-	OpponentAttacks  int
-	OpponentBlocks   int
-	OpponentServices int
-	Errors           int
-	OpponentPoints   int
-	Winner           string
+	Team            string
+	Opponent        string
+	TeamSets        int
+	OpponentSets    int
+	Sets            []Set
+	Attacks         int
+	Blocks          int
+	Serves          int
+	OpponentErrors  int
+	Points          int
+	OpponentAttacks int
+	OpponentBlocks  int
+	OpponentServes  int
+	Errors          int
+	OpponentPoints  int
+	Winner          string
 }
 
 func (g *Game) PrintGame() string {
@@ -48,7 +48,7 @@ func (g *Game) PrintGame() string {
 	} else {
 		blSpace = maxLen - 6
 	}
-	if g.Services < 10 {
+	if g.Serves < 10 {
 		seSpace = maxLen - 5
 	} else {
 		seSpace = maxLen - 6
@@ -76,8 +76,8 @@ func (g *Game) PrintGame() string {
 		g.Blocks,
 		g.OpponentBlocks,
 		strings.Repeat(" ", seSpace),
-		g.Services,
-		g.OpponentServices,
+		g.Serves,
+		g.OpponentServes,
 		strings.Repeat(" ", erSpace),
 		g.OpponentErrors,
 		g.Errors,
@@ -119,12 +119,12 @@ func (g *Game) UpdateGame(set Set) {
 	g.Sets = append(g.Sets, set)
 	g.Attacks += set.Attacks
 	g.Blocks += set.Blocks
-	g.Services += set.Services
+	g.Serves += set.Serves
 	g.OpponentErrors += set.OpponentErrors
 	g.Points += set.Points
 	g.OpponentAttacks += set.OpponentAttacks
 	g.OpponentBlocks += set.OpponentBlocks
-	g.OpponentServices += set.OpponentServices
+	g.OpponentServes += set.OpponentServes
 	g.Errors += set.Errors
 	g.OpponentPoints += set.OpponentPoints
 }
