@@ -26,11 +26,9 @@ type Set struct {
 
 func (s *Set) Attack(fwd bool) {
 	if fwd {
-		fmt.Println("attack", fwd)
 		s.Attacks += 1
 		s.Points += 1
 	} else if !fwd {
-		fmt.Println("delete attack", fwd)
 		s.Attacks -= 1
 		s.Points -= 1
 	}
@@ -181,14 +179,11 @@ func (s *Set) PlaySet(team, opponent string) {
 			break
 		}
 		if choice == constants.RollBack {
-			fmt.Println("AAAAAAAA")
 			s.forward = false
 			choice = s.lastAction
 		} else {
 			s.lastAction = choice
 		}
-		fmt.Println("FORW", s.forward)
-		fmt.Println("lastAc", s.lastAction)
 		switch choice {
 		case constants.Attack:
 			s.Attack(s.forward)
