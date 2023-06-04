@@ -162,13 +162,12 @@ func (s *Set) PrintSet(team, opponent string) string {
 func (s *Set) PlaySet(team, opponent string) {
 	fmt.Println()
 	fmt.Println("NEW SET!")
-	fmt.Println()
 	for {
 		fmt.Println(s.PrintSet(team, opponent))
 		var choice string
 		s.forward = true
 		for !utils.CheckStringInArray(choice, constants.SetActions) {
-			fmt.Println("Game action: ")
+			fmt.Print("Game action: ")
 			fmt.Scan(&choice)
 			choice = strings.TrimSpace(choice)
 			choice = strings.ToLower(choice)
