@@ -2,6 +2,8 @@ package constants
 
 const (
 	Attack          string = "a"
+	AttackNeutral   string = "an"
+	AttackError     string = "ae"
 	Block           string = "b"
 	Service         string = "s"
 	OpponentError   string = "oe"
@@ -16,6 +18,8 @@ const (
 
 var SetActions = []string{
 	Attack,
+	AttackNeutral,
+	AttackError,
 	Block,
 	Service,
 	OpponentError,
