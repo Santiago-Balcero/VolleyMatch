@@ -5,7 +5,11 @@ const (
 	AttackNeutral   string = "an"
 	AttackError     string = "ae"
 	Block           string = "b"
-	Service         string = "s"
+	BlockNeutral    string = "bn"
+	BlockError      string = "be"
+	Serve           string = "s"
+	ServeNeutral    string = "sn"
+	ServeError      string = "se"
 	OpponentError   string = "oe"
 	OpponentAttack  string = "oa"
 	OpponentBlock   string = "ob"
@@ -21,7 +25,11 @@ var SetActions = []string{
 	AttackNeutral,
 	AttackError,
 	Block,
-	Service,
+	BlockNeutral,
+	BlockError,
+	Serve,
+	ServeNeutral,
+	ServeError,
 	OpponentError,
 	OpponentAttack,
 	OpponentBlock,

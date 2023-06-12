@@ -349,10 +349,18 @@ func (s *Set) PlaySet(team, opponent string) {
 			s.OpponentAttack(s.forward)
 		case constants.Block:
 			s.Block(s.forward)
+		case constants.BlockNeutral:
+			s.BlockNeutral(s.forward)
+		case constants.BlockError:
+			s.BlockError(s.forward)
 		case constants.OpponentBlock:
 			s.OpponentBlock(s.forward)
-		case constants.Service:
+		case constants.Serve:
 			s.Serve(s.forward)
+		case constants.ServeNeutral:
+			s.ServeNeutral(s.forward)
+		case constants.ServeError:
+			s.ServeError(s.forward)
 		case constants.OpponentService:
 			s.OpponentServe(s.forward)
 		case constants.Error:
