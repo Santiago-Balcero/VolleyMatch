@@ -184,26 +184,21 @@ func (s *Set) UpdateStats() {
 	// When doing rollback until set starting point (all stats in 0) effectiveness values are NaN
 	// Ifs in this method fix it
 	s.TotalAttacks = s.Attacks + s.AttackNeutrals + s.AttackErrors
-	fmt.Println("Total Attacks", s.TotalAttacks)
 	s.AttackEffectiveness = (float64(s.Attacks) / float64(s.TotalAttacks)) * 100
 	if math.IsNaN(s.AttackEffectiveness) {
 		s.AttackEffectiveness = 0.00
 	}
 	s.TotalBlocks = s.Blocks + s.BlockNeutrals + s.BlockErrors
-	fmt.Println("Total Blocks", s.TotalBlocks)
 	s.BlockEffectiveness = (float64(s.Blocks) / float64(s.TotalBlocks)) * 100
 	if math.IsNaN(s.BlockEffectiveness) {
 		s.BlockEffectiveness = 0.00
 	}
 	s.TotalServes = s.Serves + s.ServeNeutrals + s.ServeErrors
-	fmt.Println("Total Serves", s.TotalServes)
 	s.ServeEffectiveness = (float64(s.Serves) / float64(s.TotalServes)) * 100
 	if math.IsNaN(s.ServeEffectiveness) {
 		s.ServeEffectiveness = 0.00
 	}
 	s.TotalActions = s.TotalAttacks + s.TotalBlocks + s.TotalServes + s.Errors
-	fmt.Println("Total Errors", s.Errors)
-	fmt.Println("Total Actions", s.TotalActions)
 	s.TotalEffectiveness = (float64(s.Points-s.OpponentErrors) / float64(s.TotalActions)) * 100
 	if math.IsNaN(s.TotalEffectiveness) {
 		s.TotalEffectiveness = 0.00
