@@ -35,7 +35,7 @@ type Set struct {
 	Errors              int
 	OpponentPoints      int
 	Winner              string
-	lastAction          []string
+	gameActions         []string
 	forward             bool
 	SetCount            int
 }
@@ -322,15 +322,15 @@ func (s *Set) PlaySet(team, opponent string) {
 			break
 		}
 		if choice == constants.RollBack {
-			if len(s.lastAction) > 0 {
+			if len(s.gameActions) > 0 {
 				s.forward = false
-				choice = s.lastAction[len(s.lastAction)-1]
-				s.lastAction = s.lastAction[:len(s.lastAction)-1]
+				choice = s.gameActions[len(s.gameActions)-1]
+				s.gameActions = s.gameActions[:len(s.gameActions)-1]
 			} else {
 				fmt.Println("No registered actions in set")
 			}
 		} else {
-			s.lastAction = append(s.lastAction, choice)
+			s.gameActions = append(s.gameActions, choice)
 		}
 		switch choice {
 		case constants.Attack:
