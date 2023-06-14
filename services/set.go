@@ -65,10 +65,12 @@ func (s *Set) AttackError(fwd bool) {
 		s.AttackErrors += 1
 		s.TotalAttacks += 1
 		s.Errors += 1
+		s.OpponentPoints += 1
 	} else if !fwd {
 		s.AttackErrors -= 1
 		s.TotalAttacks -= 1
 		s.Errors -= 1
+		s.OpponentPoints -= 1
 	}
 }
 
@@ -106,11 +108,13 @@ func (s *Set) BlockError(fwd bool) {
 	if fwd {
 		s.BlockErrors += 1
 		s.TotalBlocks += 1
-		s.Errors += 1
+		s.OpponentAttacks += 1
+		s.OpponentPoints += 1
 	} else {
 		s.BlockErrors -= 1
 		s.TotalBlocks -= 1
-		s.Errors -= 1
+		s.OpponentAttacks -= 1
+		s.OpponentPoints -= 1
 	}
 }
 
@@ -118,9 +122,11 @@ func (s *Set) OpponentBlock(fwd bool) {
 	if fwd {
 		s.OpponentBlocks += 1
 		s.OpponentPoints += 1
+		s.AttackErrors += 1
 	} else {
 		s.OpponentBlocks -= 1
 		s.OpponentPoints -= 1
+		s.AttackErrors -= 1
 	}
 }
 
@@ -149,10 +155,12 @@ func (s *Set) ServeError(fwd bool) {
 		s.ServeErrors += 1
 		s.TotalServes += 1
 		s.Errors += 1
+		s.OpponentPoints += 1
 	} else {
 		s.ServeErrors -= 1
 		s.TotalServes -= 1
 		s.Errors -= 1
+		s.OpponentPoints -= 1
 	}
 }
 
