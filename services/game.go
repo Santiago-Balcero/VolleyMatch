@@ -96,7 +96,7 @@ func (g *Game) PrintGame() string {
 		g.OpponentServes,
 		strings.Repeat(" ", erSpace),
 		g.OpponentErrors,
-		g.Errors,
+		g.Errors+g.AttackErrors+g.ServeErrors,
 	)
 	if g.AttackEffectiveness == 100 {
 		atSpace = maxLen - 15
