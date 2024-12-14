@@ -127,7 +127,7 @@ func (g *Game) PrintGame() string {
 		toSpace = maxLen - 12
 	}
 	teamPerformance := fmt.Sprintf(
-		"\n- TEAM MATCH EFFECTIVENESS\nAttack: %s%.2f%%\nBlock: %s%.2f%%\nServe: %s%.2f%%\nTotal: %s%.2f%%\n",
+		"\n- TEAM MATCH EFFECTIVENESS\nAttack: %s%.2f%%\nBlock: %s%.2f%%\nServe: %s%.2f%%\nTotal: %s%.2f%%\n\nTotal attacks: %d\nTotal blocks: %d\nTotal serves: %d\n",
 		strings.Repeat(" ", atSpace),
 		math.Round(g.AttackEffectiveness*100)/100,
 		strings.Repeat(" ", blSpace),
@@ -136,6 +136,9 @@ func (g *Game) PrintGame() string {
 		math.Round(g.ServeEffectiveness*100)/100,
 		strings.Repeat(" ", toSpace),
 		math.Round(g.TotalEffectiveness*100)/100,
+		g.TotalAttacks,
+		g.TotalBlocks,
+		g.TotalServes,
 	)
 	return teamStats + teamPerformance
 }

@@ -289,7 +289,7 @@ func (s *Set) PrintSet(team, opponent string) string {
 		toSpace = maxLen - 12
 	}
 	teamPerformance := fmt.Sprintf(
-		"\n- TEAM SET %d EFFECTIVENESS\nAttack: %s%.2f%%\nBlock: %s%.2f%%\nServe: %s%.2f%%\nTotal: %s%.2f%%\n",
+		"\n- TEAM SET %d EFFECTIVENESS\nAttack: %s%.2f%%\nBlock: %s%.2f%%\nServe: %s%.2f%%\nTotal: %s%.2f%%\n\nTotal attacks: %d\nTotal blocks: %d\nTotal serves: %d\n",
 		s.SetCount,
 		strings.Repeat(" ", atSpace),
 		math.Round(s.AttackEffectiveness*100)/100,
@@ -299,6 +299,9 @@ func (s *Set) PrintSet(team, opponent string) string {
 		math.Round(s.ServeEffectiveness*100)/100,
 		strings.Repeat(" ", toSpace),
 		math.Round(s.TotalEffectiveness*100)/100,
+		s.TotalAttacks,
+		s.TotalBlocks,
+		s.TotalServes,
 	)
 	return teamStats + teamPerformance
 }
